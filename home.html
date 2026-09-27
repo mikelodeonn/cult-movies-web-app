@@ -13,7 +13,7 @@
 
   <body>
     <!--NAVBAR-->
-    <header class="navbar" id="navbar">
+    <header class="navbar" id="navBar">
       <!--CONTENIDO DE NAVBAR-->
       <div class="navbar-content">
         <a href="#inicio" class="navbar-logo" data-nav="inicio">
@@ -21,7 +21,7 @@
         </a>
 
         <!--PARA EL BOTON ADAPTADO A MOVILES-->
-        <button class="navbar-toggle" id="nav-toggle">
+        <button class="navbar-toggle" id="navToggle">
           <span></span>
           <span></span>
           <span></span>
@@ -76,6 +76,38 @@
       </div>
     </header>
 
-    
+    <main id="mainContent">
+      <!--HERO O CONTENIDO MAS LLAMATIVO-->
+      <section class="hero" id="hero">
+        <div class="hero-media">
+          <video class="hero-video" autoplay muted loop playsinline>
+            <source
+              src="videos/Coyote Vs. ACME - Trailer Oficial Doblado al Español.mp4"
+            />
+          </video>
+          <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+          <span class="hero-eyebrow">Estreno del mes</span>
+          <h1 class="hero-title">Coyote vs Acme</h1>
+          <p class="hero-info">2026 - Ciencia Ficción - 2h 18min</p>
+          <p class="hero-synopsis">
+            Después de que los productos de Acme le fallan demasiadas veces en
+            su tenaz búsqueda del Correcaminos, Wile E. Coyote decide contratar
+            a un abogado especializado en vallas publicitarias para demandar a
+            Acme Corporation.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-details" id="heroInfoBtn">
+              Ver Detalles
+            </button>
+            <button class="btn-fav" id="heroFavBtn">
+              <span class="heart">🤍</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
