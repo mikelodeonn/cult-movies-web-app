@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   activarMenuMovil();
   activarLinksNavbar();
   activarBotonFavorito();
+  renderizarFila(peliculas, "peliculasCards");
+  renderizarFila(series, "seriesCards");
+
 });
 
 /*MENU MOVIL*/
@@ -75,4 +78,42 @@ function activarBotonFavorito() {
 
     corazon.textContent = yaEsFavorito ? "🤍" : "❤️";
   });
+}
+
+/* -----------------------------------------------------
+   4. CREAR TARJETAS A PARTIR DE data.js
+   -----------------------------------------------------
+   "peliculas" y "series" vienen de data.js, que se carga
+   antes que este archivo (por eso podemos usarlas aquí
+   directamente, sin importarlas).
+----------------------------------------------------- */
+ 
+/* Recibe UN título (un objeto del arreglo) y devuelve el
+   HTML de su tarjeta como texto. Las comillas invertidas
+   ` ` permiten escribir varias líneas, y ${...} inserta el
+   valor de una variable dentro del texto. */
+function crearTarjeta(titulo) {
+  return `
+    <article class="card" data-id="${titulo.id}">
+      <img class="card-poster" src="${titulo.poster}" alt="${titulo.nombre}" />
+      <div class="card-info">
+        <h3 class="card-title">${titulo.nombre}</h3>
+        <div class="card-meta">
+          <span class="card-rate">⭐ ${titulo.rate}</span>
+          <button class="card-fav" data-id="${titulo.id}">🤍</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+ 
+/* Recibe una lista (peliculas o series) y el id del
+   contenedor donde deben aparecer las tarjetas. */
+function renderizarFila(lista, idContenedor) {
+  const contenedor = document.getElementById(idContenedor);
+  if (!contenedor) return;
+ 
+  // .map recorre la lista y transforma cada título en el HTML de su
+  // tarjeta. Devuelve una lista de textos, y .join("") los une en uno solo.
+  contenedor.innerHTML = lista.map(crearTarjeta).join("");
 }
