@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     activarFiltroGeneros();
     activarVolverAInicio();
 
+    activarMejorValorados();
+
 });
 
 /*MENU MOVIL*/
@@ -170,4 +172,28 @@ function activarVolverAInicio() {
         enlace.addEventListener("click", mostrarVistaInicio);
     });
 
+}
+
+function activarMejorValorados() {
+  const boton = document.getElementById("topRatedBtn");
+  if (!boton) return;
+ 
+  boton.addEventListener("click", () => {
+    // [...peliculas, ...series] crea una lista NUEVA. Es importante,
+    // porque .sort() cambia el orden de la lista sobre la que se
+    // usa: si ordenáramos "peliculas" directamente, las filas del
+    // inicio quedarían reordenadas también.
+    const todos = [...peliculas, ...series];
+ 
+    // .sort recibe una función que compara dos títulos (a y b).
+    // Si b.rate - a.rate es positivo, b va primero: de mayor a menor.
+    const ordenados = todos.sort((a, b) => b.rate - a.rate);
+ 
+    mostrarVistaFiltrada("Mejor valorados", ordenados);
+ 
+    // Quitamos el género marcado, para no tener dos filtros activos
+    document
+      .querySelectorAll(".genre-btn")
+      .forEach((genero) => genero.classList.remove("is-active"));
+  });
 }
