@@ -1,25 +1,22 @@
 /* SCRIPT.JS
 
-   Por ahora solo manejamos 2 cosas:
-   1. Abrir/cerrar el menú en móvil.
-   2. Marcar/desmarcar favoritos (corazón) y el link activo.
-
-   Proximos pasos:
-    - Todo lo de localStorage, filtros y modal 
-   */
 
 /*EVENTO QUE SE DISPARA CUANDO EL NAVEGADOR TERMINA DE LEER EL HTML, PARA PODER BUSCAR ELEMENTOS SIN ERRORES*/
 document.addEventListener("DOMContentLoaded", () => {
     activarMenuMovil();
     activarLinksNavbar();
-    activarBotonFavorito();
+
     renderizarFila(peliculas, "peliculasCards");
     renderizarFila(series, "seriesCards");
-   
+
     activarFiltroGeneros();
     activarVolverAInicio();
 
     activarMejorValorados();
+
+    activarFiltroFavoritos();
+
+    activarBusqueda();
 
 });
 
@@ -65,25 +62,7 @@ function activarLinksNavbar() {
     });
 }
 
-/* -----------------------------------------------------
-   3. BOTÓN DE FAVORITO (corazón)
-   -----------------------------------------------------
-   Cambiamos el emoji del corazón entre blanco (no favorito)
-   y rojo (favorito) cada vez que se hace clic.
-   TODO: en un próximo paso, guardamos este estado en
-   localStorage para que se recuerde al recargar la página.
------------------------------------------------------ */
-function activarBotonFavorito() {
-    const botonFav = document.getElementById("heroFavBtn");
-    if (!botonFav) return;
 
-    botonFav.addEventListener("click", () => {
-        const corazon = botonFav.querySelector(".heart");
-        const yaEsFavorito = corazon.textContent === "❤️";
-
-        corazon.textContent = yaEsFavorito ? "🤍" : "❤️";
-    });
-}
 
 /* -----------------------------------------------------
    4. CREAR TARJETAS A PARTIR DE data.js
@@ -105,7 +84,7 @@ function crearTarjeta(titulo) {
         <h3 class="card-title">${titulo.nombre}</h3>
         <div class="card-meta">
           <span class="card-rate">⭐ ${titulo.rate}</span>
-          <button class="card-fav" data-id="${titulo.id}">🤍</button>
+          
         </div>
       </div>
     </article>
@@ -175,25 +154,123 @@ function activarVolverAInicio() {
 }
 
 function activarMejorValorados() {
-  const boton = document.getElementById("topRatedBtn");
-  if (!boton) return;
- 
-  boton.addEventListener("click", () => {
-    // [...peliculas, ...series] crea una lista NUEVA. Es importante,
-    // porque .sort() cambia el orden de la lista sobre la que se
-    // usa: si ordenáramos "peliculas" directamente, las filas del
-    // inicio quedarían reordenadas también.
-    const todos = [...peliculas, ...series];
- 
-    // .sort recibe una función que compara dos títulos (a y b).
-    // Si b.rate - a.rate es positivo, b va primero: de mayor a menor.
-    const ordenados = todos.sort((a, b) => b.rate - a.rate);
- 
-    mostrarVistaFiltrada("Mejor valorados", ordenados);
- 
-    // Quitamos el género marcado, para no tener dos filtros activos
-    document
-      .querySelectorAll(".genre-btn")
-      .forEach((genero) => genero.classList.remove("is-active"));
-  });
+    const boton = document.getElementById("topRatedBtn");
+    if (!boton) return;
+
+    boton.addEventListener("click", () => {
+        // [...peliculas, ...series] crea una lista NUEVA. Es importante,
+        // porque .sort() cambia el orden de la lista sobre la que se
+        // usa: si ordenáramos "peliculas" directamente, las filas del
+        // inicio quedarían reordenadas también.
+        const todos = [...peliculas, ...series];
+
+        // .sort recibe una función que compara dos títulos (a y b).
+        // Si b.rate - a.rate es positivo, b va primero: de mayor a menor.
+        const ordenados = todos.sort((a, b) => b.rate - a.rate);
+
+        mostrarVistaFiltrada("Mejor valorados", ordenados);
+
+        // Quitamos el género marcado, para no tener dos filtros activos
+        document
+            .querySelectorAll(".genre-btn")
+            .forEach((genero) => genero.classList.remove("is-active"));
+    });
+
+
+}
+
+/* -----------------------------------------------------
+   7. FAVORITOS (localStorage)
+   -----------------------------------------------------
+   localStorage solo guarda TEXTO. Para guardar una lista de
+   ids la convertimos a texto con JSON.stringify, y al leerla
+   la volvemos a convertir en lista con JSON.parse.
+   Lo guardado se ve así:  ["pel-001","ser-004"]
+----------------------------------------------------- */
+
+// Nombre con el que guardamos la lista dentro de localStorage
+const CLAVE_FAVORITOS = "cultmovies_favoritos";
+
+/* Devuelve la lista de ids favoritos. Si todavía no se guardó
+   nada, getItem devuelve null y usamos una lista vacía []. */
+function obtenerFavoritos() {
+    return JSON.parse(localStorage.getItem(CLAVE_FAVORITOS)) || [];
+}
+
+/* Devuelve true si ese id está en la lista de favoritos */
+function esFavorito(id) {
+    return obtenerFavoritos().includes(id);
+}
+
+/* Si el id ya era favorito lo quita; si no, lo agrega.
+   Guarda la lista y devuelve true si ahora ES favorito. */
+function alternarFavorito(id) {
+    const favoritos = obtenerFavoritos();
+    const posicion = favoritos.indexOf(id); // -1 significa "no está"
+
+    if (posicion === -1) {
+        favoritos.push(id); // agregar al final
+    } else {
+        favoritos.splice(posicion, 1); // quitar 1 elemento en esa posición
+    }
+
+    localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(favoritos));
+    return posicion === -1;
+}
+
+/* -----------------------------------------------------
+   Filtro "Favoritos" del navbar
+----------------------------------------------------- */
+function activarFiltroFavoritos() {
+    document.querySelectorAll('[data-nav="favoritos"]').forEach((enlace) => {
+        enlace.addEventListener("click", () => {
+            const favoritos = obtenerFavoritos();
+            const todos = [...peliculas, ...series];
+            const resultados = todos.filter((titulo) => favoritos.includes(titulo.id));
+
+            mostrarVistaFiltrada("Favoritos", resultados);
+
+            document
+                .querySelectorAll(".genre-btn")
+                .forEach((genero) => genero.classList.remove("is-active"));
+        });
+    });
+}
+
+function activarBusqueda() {
+    const formulario = document.getElementById("searchForm");
+    const input = document.getElementById("searchInput");
+    const menu = document.getElementById("navMenu");
+
+    if (!formulario || !input) return;
+
+    // "submit" se dispara al apretar Enter o el botón de la lupa.
+    // preventDefault() evita que un <form> haga lo que hace por
+    // defecto (recargar la página y perder todo lo que hicimos en JS).
+    formulario.addEventListener("submit", (evento) => {
+        evento.preventDefault();
+
+        // .trim() quita espacios sueltos al principio/final,
+        // .toLowerCase() pasa todo a minúsculas para poder comparar
+        // sin que "Dune" y "dune" cuenten como distintos.
+        const texto = input.value.trim().toLowerCase();
+        if (!texto) return; // si el campo está vacío, no hacemos nada
+
+        const todos = [...peliculas, ...series];
+
+        // .includes() aquí es de texto, no de arreglo: revisa si
+        // "texto" aparece en algún lugar del nombre, no solo al inicio.
+        const resultados = todos.filter((titulo) =>
+            titulo.nombre.toLowerCase().includes(texto)
+        );
+
+        mostrarVistaFiltrada(`Resultados para "${input.value}"`, resultados);
+
+        document
+            .querySelectorAll(".genre-btn")
+            .forEach((genero) => genero.classList.remove("is-active"));
+
+        // Si se buscó desde el menú móvil abierto, lo cerramos
+        if (menu) menu.classList.remove("is-open");
+    });
 }
