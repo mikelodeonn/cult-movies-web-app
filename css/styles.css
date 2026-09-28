@@ -365,6 +365,19 @@ a {
   cursor: pointer;
 }
 
+/*SE MANEJA CON JS PARA OCULTAR O MOSTRAR VISTA*/
+.oculto {
+  display: none;
+}
+/*CREA TODAS LAS COLUMNAS DE ALMENOS 180PX QUE QUEPAN EN EL ANCHO DISPONIBLE Y REPARTE EL SOBRANTE ENTRE ELLAS*/
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+.grid-cards .card {
+    width: auto; /*EN LA FILA LAS TARJETAS TENIAN TAMANO FIJO, EN EL GRID DEBEN OCUPAR EL ANCHO*/
+}
+
 /*MEDIAQUERY PARA CELULARES*/
 @media (max-width: 768px) {
   .navbar-toggle {

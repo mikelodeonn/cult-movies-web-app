@@ -119,7 +119,7 @@
                 <button class="genre-btn" data-genero="Comedia">Comedia</button>
               </li>
               <li>
-                <button class="genre-btn" data-genero="Accion">Acción</button>
+                <button class="genre-btn" data-genero="Acción">Acción</button>
               </li>
               <li>
                 <button class="genre-btn" data-genero="Drama">Drama</button>
@@ -130,7 +130,7 @@
                 </button>
               </li>
               <li>
-                <button class="genre-btn" data-genero="CienciaFiccion">
+                <button class="genre-btn" data-genero="Ciencia ficción">
                   Ciencia Ficción
                 </button>
               </li>
@@ -165,19 +165,25 @@
 
         <!-- CONTENIDO PRINCIPAL: aquí van las filas estilo Netflix o la grilla filtrada -->
         <div class="content-area" id="contentArea">
-          <section class="row" id="peliculas">
-            <h2 class="row-title">Peliculas</h2>
-            <div class="row-cards" id="peliculasCards"></div>
+          <!--VISTA DEFAULT-->
+          <div id="vistaInicio">
+            <section class="row" id="peliculas">
+              <h2 class="row-title">Peliculas</h2>
+              <div class="row-cards" id="peliculasCards"></div>
+            </section>
 
-            <!--LAS CRDS SE CREARAN CON JS-->
-          </section>
-
-          <section class="row" id="series">
-            <h2 class="row-title">Series</h2>
-            <div class="row-cards" id="seriessCards"></div>
-
-            <!--LAS CRDS SE CREARAN CON JS-->
-          </section>
+            <section class="row" id="series">
+              <h2 class="row-title">Series</h2>
+              <div class="row-cards" id="seriesCards"></div>
+            </section>
+          </div>
+          <!--PARA RESULTADOS DE FILTRADOS (OCULTO AL INICIO)-->
+          <div id="vistaFiltrada" class="oculto">
+            <h2 class="row-title" id="tituloFiltrado">Resultados</h2>
+            <div class="grid-cards" id="gridCards">
+              <!-- Los resultados se crean con JS al filtrar -->
+            </div>
+          </div>
         </div>
       </div>
 

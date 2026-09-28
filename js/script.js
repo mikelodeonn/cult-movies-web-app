@@ -8,29 +8,32 @@
     - Todo lo de localStorage, filtros y modal 
    */
 
-   /*EVENTO QUE SE DISPARA CUANDO EL NAVEGADOR TERMINA DE LEER EL HTML, PARA PODER BUSCAR ELEMENTOS SIN ERRORES*/
+/*EVENTO QUE SE DISPARA CUANDO EL NAVEGADOR TERMINA DE LEER EL HTML, PARA PODER BUSCAR ELEMENTOS SIN ERRORES*/
 document.addEventListener("DOMContentLoaded", () => {
-  activarMenuMovil();
-  activarLinksNavbar();
-  activarBotonFavorito();
-  renderizarFila(peliculas, "peliculasCards");
-  renderizarFila(series, "seriesCards");
+    activarMenuMovil();
+    activarLinksNavbar();
+    activarBotonFavorito();
+    renderizarFila(peliculas, "peliculasCards");
+    renderizarFila(series, "seriesCards");
+   
+    activarFiltroGeneros();
+    activarVolverAInicio();
 
 });
 
 /*MENU MOVIL*/
 function activarMenuMovil() {
-  const botonToggle = document.getElementById("navToggle");
-  const menu = document.getElementById("navMenu");
+    const botonToggle = document.getElementById("navToggle");
+    const menu = document.getElementById("navMenu");
 
-  if (!botonToggle || !menu) return;
+    if (!botonToggle || !menu) return;
 
-  botonToggle.addEventListener("click", () => {
-    // classList.toggle: si el menú NO tiene la clase "is-open",
-    // se la agrega. Si YA la tiene, se la quita. Así el mismo
-    // botón sirve para abrir y para cerrar.
-    menu.classList.toggle("is-open");
-  });
+    botonToggle.addEventListener("click", () => {
+        // classList.toggle: si el menú NO tiene la clase "is-open",
+        // se la agrega. Si YA la tiene, se la quita. Así el mismo
+        // botón sirve para abrir y para cerrar.
+        menu.classList.toggle("is-open");
+    });
 }
 
 /* -----------------------------------------------------
@@ -42,22 +45,22 @@ function activarMenuMovil() {
    link marcado como "activo".
 ----------------------------------------------------- */
 function activarLinksNavbar() {
-  const links = document.querySelectorAll(".navbar-link");
-  const menu = document.getElementById("navMenu");
+    const links = document.querySelectorAll(".navbar-link");
+    const menu = document.getElementById("navMenu");
 
-  links.forEach((link) => {
-    link.addEventListener("click", () => {
-      // Le quitamos "is-active" a todos los links...
-      links.forEach((otroLink) => otroLink.classList.remove("is-active"));
+    links.forEach((link) => {
+        link.addEventListener("click", () => {
+            // Le quitamos "is-active" a todos los links...
+            links.forEach((otroLink) => otroLink.classList.remove("is-active"));
 
-      // ...y se la ponemos solo al que se clickeó (this / link)
-      link.classList.add("is-active");
+            // ...y se la ponemos solo al que se clickeó (this / link)
+            link.classList.add("is-active");
 
-      // Si estamos en móvil y el menú está abierto, lo cerramos
-      // al elegir una opción (mejor experiencia de uso)
-      if (menu) menu.classList.remove("is-open");
+            // Si estamos en móvil y el menú está abierto, lo cerramos
+            // al elegir una opción (mejor experiencia de uso)
+            if (menu) menu.classList.remove("is-open");
+        });
     });
-  });
 }
 
 /* -----------------------------------------------------
@@ -69,15 +72,15 @@ function activarLinksNavbar() {
    localStorage para que se recuerde al recargar la página.
 ----------------------------------------------------- */
 function activarBotonFavorito() {
-  const botonFav = document.getElementById("heroFavBtn");
-  if (!botonFav) return;
+    const botonFav = document.getElementById("heroFavBtn");
+    if (!botonFav) return;
 
-  botonFav.addEventListener("click", () => {
-    const corazon = botonFav.querySelector(".heart");
-    const yaEsFavorito = corazon.textContent === "❤️";
+    botonFav.addEventListener("click", () => {
+        const corazon = botonFav.querySelector(".heart");
+        const yaEsFavorito = corazon.textContent === "❤️";
 
-    corazon.textContent = yaEsFavorito ? "🤍" : "❤️";
-  });
+        corazon.textContent = yaEsFavorito ? "🤍" : "❤️";
+    });
 }
 
 /* -----------------------------------------------------
@@ -87,13 +90,13 @@ function activarBotonFavorito() {
    antes que este archivo (por eso podemos usarlas aquí
    directamente, sin importarlas).
 ----------------------------------------------------- */
- 
+
 /* Recibe UN título (un objeto del arreglo) y devuelve el
    HTML de su tarjeta como texto. Las comillas invertidas
    ` ` permiten escribir varias líneas, y ${...} inserta el
    valor de una variable dentro del texto. */
 function crearTarjeta(titulo) {
-  return `
+    return `
     <article class="card" data-id="${titulo.id}">
       <img class="card-poster" src="${titulo.poster}" alt="${titulo.nombre}" />
       <div class="card-info">
@@ -106,14 +109,65 @@ function crearTarjeta(titulo) {
     </article>
   `;
 }
- 
+
 /* Recibe una lista (peliculas o series) y el id del
    contenedor donde deben aparecer las tarjetas. */
 function renderizarFila(lista, idContenedor) {
-  const contenedor = document.getElementById(idContenedor);
-  if (!contenedor) return;
- 
-  // .map recorre la lista y transforma cada título en el HTML de su
-  // tarjeta. Devuelve una lista de textos, y .join("") los une en uno solo.
-  contenedor.innerHTML = lista.map(crearTarjeta).join("");
+    const contenedor = document.getElementById(idContenedor);
+    if (!contenedor) return;
+
+    // .map recorre la lista y transforma cada título en el HTML de su
+    // tarjeta. Devuelve una lista de textos, y .join("") los une en uno solo.
+    contenedor.innerHTML = lista.map(crearTarjeta).join("");
+}
+/* Cambia a la vista de resultados: esconde las filas,
+ muestra la grilla y la llena con las tarjetas de "lista".
+ Es una función aparte porque más adelante la van a usar
+ también Favoritos, Mejor Valorados y la búsqueda. */
+function mostrarVistaFiltrada(titulo, lista) {
+    document.getElementById("tituloFiltrado").textContent = titulo;
+    document.getElementById("gridCards").innerHTML = lista.map(crearTarjeta).join("");
+
+    document.getElementById("vistaInicio").classList.add("oculto");
+    document.getElementById("vistaFiltrada").classList.remove("oculto");
+}
+
+/* Vuelve a la vista de las dos filas y quita el género marcado */
+function mostrarVistaInicio() {
+    document.getElementById("vistaFiltrada").classList.add("oculto");
+    document.getElementById("vistaInicio").classList.remove("oculto");
+
+    document
+        .querySelectorAll(".genre-btn")
+        .forEach((boton) => boton.classList.remove("is-active"));
+}
+
+function activarFiltroGeneros() {
+    const botones = document.querySelectorAll(".genre-btn");
+
+    botones.forEach((boton) => {
+        boton.addEventListener("click", () => {
+
+            const genero = boton.dataset.genero;
+            const todos = [...peliculas, ...series];
+            const resultados = todos.filter((titulo) => titulo.genero === genero);
+
+            mostrarVistaFiltrada(genero, resultados);
+
+            botones.forEach((otro) => otro.classList.remove("is-active"));
+            boton.classList.add("is-active");
+
+
+        });
+    });
+
+}
+
+/* El logo y el link "Inicio" tienen data-nav="inicio".
+Al hacer clic en cualquiera, volvemos a la vista de filas. */
+function activarVolverAInicio() {
+    document.querySelectorAll('[data-nav="inicio"]').forEach((enlace) => {
+        enlace.addEventListener("click", mostrarVistaInicio);
+    });
+
 }
