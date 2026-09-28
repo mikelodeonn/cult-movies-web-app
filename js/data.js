@@ -54,7 +54,7 @@ const peliculas = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/TLOTR(KingsReturns).jpg",
+    poster: "assets/posters/retorno-del-rey.png",
     sinopsis:
       "Mientras las fuerzas de Sauron avanzan sobre la Tierra Media, Frodo y Sam continúan su viaje para destruir el Anillo Único.",
     comentarios: []
