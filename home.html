@@ -107,14 +107,56 @@
         </div>
       </section>
 
-      <!-- ============================= -->
-      <!-- Aquí seguirán las próximas secciones: -->
-      <!-- - Sidebar (Géneros + Mejor Valorados)  -->
-      <!-- - Main Viewport (filas Netflix / grilla filtrada) -->
+      <!-- CONTENEDOR DE 2 COLUMNAS: sidebar + contenido principal -->
+      <div class="layout-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+          <!-- BLOQUE 1: Filtro de Géneros -->
+          <div class="sidebar-genres">
+            <h3 class="sidebar-title">Géneros</h3>
+            <ul class="genre-list">
+              <li>
+                <button class="genre-btn" data-genero="Comedia">Comedia</button>
+              </li>
+              <li>
+                <button class="genre-btn" data-genero="Accion">Acción</button>
+              </li>
+              <li>
+                <button class="genre-btn" data-genero="Drama">Drama</button>
+              </li>
+              <li>
+                <button class="genre-btn" data-genero="Fantasia">
+                  Fantasía
+                </button>
+              </li>
+              <li>
+                <button class="genre-btn" data-genero="CienciaFiccion">
+                  Ciencia Ficción
+                </button>
+              </li>
+              <li>
+                <button class="genre-btn" data-genero="Terror">Terror</button>
+              </li>
+            </ul>
+          </div>
+          <!-- BLOQUE 2: Mejor Valorados -->
+          <div class="sidebar-top-rated">
+            <h3 class="sidebar-title">Ranking</h3>
+            <button class="btn-top-rated" id="topRatedBtn">
+              Mejor Valorados
+            </button>
+          </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL: aquí van las filas estilo Netflix o la grilla filtrada -->
+        <div class="content-area" id="contentArea">
+          <!-- Se llena en el siguiente paso -->
+        </div>
+      </div>
+
+
       <!-- - Modal de Detalle -->
       <!-- ============================= -->
-
-
     </main>
     <script src="js/script.js"></script>
   </body>

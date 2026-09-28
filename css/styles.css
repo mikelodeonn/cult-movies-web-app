@@ -1,10 +1,9 @@
-
 :root {
-  --color-oscuro: #505160;   /* FONDO GENERAL DE LA PAGINA*/
-  --color-azul: #68829E;     /* FONDO PARA ELEMENTOS SECUNDARIOS*/
-  --color-oliva: #AEBD38;    /* COLOR PRINCIPAL PARA BOTONES Y ESTADO ACTIVO */
-  --color-verde: #598234;    /* COLOR PARA HOVER */
-  --texto-claro: #FFFFFF;    /* TEXTO BLANCO PARA RESALTAR EN FONDOS OSCUROS */
+  --color-oscuro: #505160; /* FONDO GENERAL DE LA PAGINA*/
+  --color-azul: #68829e; /* FONDO PARA ELEMENTOS SECUNDARIOS*/
+  --color-oliva: #aebd38; /* COLOR PRINCIPAL PARA BOTONES Y ESTADO ACTIVO */
+  --color-verde: #598234; /* COLOR PARA HOVER */
+  --texto-claro: #ffffff; /* TEXTO BLANCO PARA RESALTAR EN FONDOS OSCUROS */
 }
 
 /*RESET BASICO DEL NAVEGADOR*/
@@ -17,13 +16,13 @@
 body {
   background-color: var(--color-oscuro);
   color: var(--texto-claro);
-  font-family: Arial, sans-serif; 
-  line-height: 1.5; 
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
 }
 
 a {
-  text-decoration: none; 
-  color: inherit; 
+  text-decoration: none;
+  color: inherit;
 }
 
 /*NAVBAR*/
@@ -35,7 +34,6 @@ a {
   z-index: 100;
   background-color: var(--color-azul);
 }
-
 
 .navbar-content {
   display: flex;
@@ -59,7 +57,7 @@ a {
 .navbar-menu {
   display: flex;
   align-items: center;
-  gap: 32px; 
+  gap: 32px;
 }
 
 .navbar-links {
@@ -71,8 +69,10 @@ a {
   color: var(--texto-claro);
   font-size: 0.95rem;
   padding-bottom: 4px;
-  border-bottom: 2px solid transparent; 
-  transition: border-color 0.2s, color 0.2s; 
+  border-bottom: 2px solid transparent;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .navbar-link:hover {
@@ -97,7 +97,7 @@ a {
 .navbar-search-input {
   background: none;
   border: none;
-  outline: none; 
+  outline: none;
   color: var(--texto-claro);
   font-size: 0.9rem;
   width: 160px;
@@ -107,7 +107,7 @@ a {
   background: none;
   border: none;
   color: var(--texto-claro);
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .navbar-search-btn:hover {
@@ -230,6 +230,76 @@ a {
   cursor: pointer;
 }
 
+.layout-container {
+  display: flex;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/*QUITAMOS PUNTOS DE LA LISTA Y SE ORDENAN EN COLUMNA*/
+.genre-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.genre-btn {
+  width: 100%;
+  text-align: left;
+  background-color: var(--color-azul);
+  color: var(--texto-claro);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font: 0.9 rem;
+}
+
+.genre-btn:hover {
+  background-color: var(--color-verde);
+}
+
+/*CLASE PARA JS MANEJE EL GENERO QUE SE APLICARA EN EL FILTRO*/
+.genre-btn.is-active {
+  background-color: var(--color-oliva);
+  color: var(--color-oscuro);
+  font-weight: bold;
+}
+
+.btn-top-rated {
+  width: 100%;
+  background-color: var(--color-verde);
+  color: var(--texto-claro);
+  border: none;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-top-rated:hover {
+    background-color: var(--color-oliva);
+    color: var(--color-oscuro);
+}
+
+
+.content-area{
+    flex: 1; /*OCUPA EL ESPACIO QUE SOBRA, YA QUE SIDEBAR TIENE ANCHO FIJO*/
+    min-height: 400px;
+}
+
 /*MEDIAQUERY PARA CELULARES*/
 @media (max-width: 768px) {
   .navbar-toggle {
@@ -265,5 +335,26 @@ a {
 
   .hero-title {
     font-size: 2rem;
+  }
+
+  /*APILA EL SIDEBAR Y EL CONTENIDO EN VISTA DE MOVIL*/
+  .layout-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .sidebar{
+    width: 100%;
+  }
+
+  .genre-list{
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .genre-btn{
+    width: auto;
+    white-space: nowrap;
   }
 }
