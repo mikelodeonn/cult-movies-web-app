@@ -9,7 +9,7 @@ const peliculas = [
     rate: 4.2,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/coyote-vs-acme.jpg",
+    poster: "assets/posters/coyote-vs-acme.png",
     sinopsis:
       "Después de que los productos de Acme le fallan demasiadas veces en su persecución del Correcaminos, Wile E. Coyote decide demandar a la compañía.",
     comentarios: []
@@ -24,7 +24,7 @@ const peliculas = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/interstellar.jpg",
+    poster: "assets/posters/Interstellar.png",
     sinopsis:
       "Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.",
     comentarios: []
@@ -39,7 +39,7 @@ const peliculas = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/the-dark-knight.jpg",
+    poster: "assets/posters/TheDarkKnight.png",
     sinopsis:
       "Batman enfrenta al Joker, un criminal que busca provocar el caos en Ciudad Gótica y desafiar los principios de sus habitantes.",
     comentarios: []
@@ -54,7 +54,7 @@ const peliculas = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/el-retorno-del-rey.jpg",
+    poster: "assets/posters/TLOTR(KingsReturns).jpg",
     sinopsis:
       "Mientras las fuerzas de Sauron avanzan sobre la Tierra Media, Frodo y Sam continúan su viaje para destruir el Anillo Único.",
     comentarios: []
@@ -69,7 +69,7 @@ const peliculas = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/across-the-spider-verse.jpg",
+    poster: "assets/posters/SM(ATSpiderverse).png",
     sinopsis:
       "Miles Morales viaja por el multiverso y conoce a una organización de Spider-People encargada de proteger distintas realidades.",
     comentarios: []
@@ -84,7 +84,7 @@ const peliculas = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/dune-parte-dos.jpg",
+    poster: "assets/posters/Dune2.png",
     sinopsis:
       "Paul Atreides se une a los Fremen mientras busca vengar la caída de su familia y cambiar el destino de Arrakis.",
     comentarios: []
@@ -99,7 +99,7 @@ const peliculas = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/oppenheimer.jpg",
+    poster: "assets/posters/Oppenheimer.png",
     sinopsis:
       "La historia del físico J. Robert Oppenheimer y su participación en el desarrollo de la primera bomba atómica.",
     comentarios: []
@@ -114,7 +114,7 @@ const peliculas = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/guardianes-galaxia-vol-3.jpg",
+    poster: "assets/posters/guardianes-galaxia-vol-3.png",
     sinopsis:
       "Los Guardianes se enfrentan al pasado de Rocket mientras emprenden una misión que pone en riesgo a todo el equipo.",
     comentarios: []
@@ -129,7 +129,7 @@ const peliculas = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/inception.jpg",
+    poster: "assets/posters/Inception.png",
     sinopsis:
       "Un especialista en infiltrarse en los sueños recibe la misión de implantar una idea en la mente de un objetivo.",
     comentarios: []
@@ -144,7 +144,7 @@ const peliculas = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/gladiator.jpg",
+    poster: "assets/posters/gladiator.png",
     sinopsis:
       "Un general romano traicionado pierde todo y termina convertido en gladiador mientras busca justicia contra el nuevo emperador.",
     comentarios: []
@@ -159,7 +159,7 @@ const peliculas = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/mad-max-fury-road.jpg",
+    poster: "assets/posters/mad-max-fury-road.png",
     sinopsis:
       "En un mundo posapocalíptico, Max se une a Furiosa en una peligrosa huida para escapar de un tirano.",
     comentarios: []
@@ -174,7 +174,7 @@ const peliculas = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/el-padrino.jpg",
+    poster: "assets/posters/el-padrino.png",
     sinopsis:
       "La familia Corleone enfrenta conflictos internos y externos mientras Michael comienza a involucrarse en el imperio criminal familiar.",
     comentarios: []
@@ -189,7 +189,7 @@ const peliculas = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/whiplash.jpg",
+    poster: "assets/posters/whiplash.png",
     sinopsis:
       "Un joven baterista de jazz entra en conflicto con un exigente profesor que lleva su talento y resistencia al límite.",
     comentarios: []
@@ -204,7 +204,7 @@ const peliculas = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/coco.jpg",
+    poster: "assets/posters/coco.png",
     sinopsis:
       "Miguel viaja accidentalmente al mundo de los muertos y descubre secretos relacionados con la historia de su familia.",
     comentarios: []
@@ -219,7 +219,7 @@ const peliculas = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/the-batman.jpg",
+    poster: "assets/posters/the-batman.png",
     sinopsis:
       "Batman investiga una serie de asesinatos cometidos por un criminal que deja pistas relacionadas con la corrupción de Ciudad Gótica.",
     comentarios: []
@@ -237,7 +237,7 @@ const series = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/breaking-bad.jpg",
+    poster: "assets/posters/breaking-bad.png",
     sinopsis:
       "Un profesor de química comienza a fabricar metanfetamina después de recibir un diagnóstico que cambia completamente su vida.",
     comentarios: []
@@ -252,7 +252,7 @@ const series = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/stranger-things.jpg",
+    poster: "assets/posters/stranger-things.png",
     sinopsis:
       "La desaparición de un niño revela experimentos secretos, criaturas sobrenaturales y una dimensión paralela.",
     comentarios: []
@@ -267,7 +267,7 @@ const series = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/game-of-thrones.jpg",
+    poster: "assets/posters/game-of-thrones.png",
     sinopsis:
       "Varias casas nobles luchan por controlar el Trono de Hierro mientras una antigua amenaza despierta en el norte.",
     comentarios: []
@@ -282,7 +282,7 @@ const series = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/the-last-of-us.jpg",
+    poster: "assets/posters/the-last-of-us.png",
     sinopsis:
       "Joel debe acompañar a Ellie a través de un mundo devastado por una infección mientras ambos intentan sobrevivir.",
     comentarios: []
@@ -297,7 +297,7 @@ const series = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/arcane.jpg",
+    poster: "assets/posters/arcane.png",
     sinopsis:
       "Dos hermanas quedan enfrentadas por un conflicto entre Piltover y Zaun mientras nuevas tecnologías alteran el equilibrio de poder.",
     comentarios: []
@@ -312,7 +312,7 @@ const series = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/the-mandalorian.jpg",
+    poster: "assets/posters/the-mandalorian.png",
     sinopsis:
       "Un cazarrecompensas mandaloriano termina protegiendo a un misterioso niño perseguido por fuerzas imperiales.",
     comentarios: []
@@ -327,7 +327,7 @@ const series = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/shogun.jpg",
+    poster: "assets/posters/shogun.png",
     sinopsis:
       "Un navegante inglés llega a Japón y queda atrapado en una compleja lucha política entre poderosos señores feudales.",
     comentarios: []
@@ -342,7 +342,7 @@ const series = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/dark.jpg",
+    poster: "assets/posters/dark.png",
     sinopsis:
       "La desaparición de varios niños revela una compleja red de secretos familiares y viajes en el tiempo.",
     comentarios: []
@@ -357,7 +357,7 @@ const series = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/peaky-blinders.jpg",
+    poster: "assets/posters/peaky-blinders.png",
     sinopsis:
       "La familia Shelby construye un poderoso imperio criminal en Birmingham tras el final de la Primera Guerra Mundial.",
     comentarios: []
@@ -372,7 +372,7 @@ const series = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/better-call-saul.jpg",
+    poster: "assets/posters/better-call-saul.png",
     sinopsis:
       "Jimmy McGill intenta construir su carrera como abogado mientras poco a poco se transforma en Saul Goodman.",
     comentarios: []
@@ -387,7 +387,7 @@ const series = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/house-of-the-dragon.jpg",
+    poster: "assets/posters/house-of-the-dragon.png",
     sinopsis:
       "La Casa Targaryen entra en una lucha interna por la sucesión al Trono de Hierro que amenaza con dividir el reino.",
     comentarios: []
@@ -402,7 +402,7 @@ const series = [
     rate: 4.6,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/the-boys.jpg",
+    poster: "assets/posters/the-boys.png",
     sinopsis:
       "Un grupo de vigilantes intenta exponer y detener a superhéroes corruptos protegidos por una poderosa corporación.",
     comentarios: []
@@ -417,7 +417,7 @@ const series = [
     rate: 4.7,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/daredevil.jpg",
+    poster: "assets/posters/daredevil.png",
     sinopsis:
       "Matt Murdock trabaja como abogado durante el día y combate el crimen de Hell's Kitchen como vigilante durante la noche.",
     comentarios: []
@@ -432,7 +432,7 @@ const series = [
     rate: 4.8,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/sherlock.jpg",
+    poster: "assets/posters/sherlock.png",
     sinopsis:
       "Sherlock Holmes resuelve complejos casos criminales en el Londres moderno acompañado por el doctor John Watson.",
     comentarios: []
@@ -447,7 +447,7 @@ const series = [
     rate: 4.9,
     visitas: 0,
     favorito: false,
-    poster: "assets/posters/avatar-the-last-airbender.jpg",
+    poster: "assets/posters/avatar-the-last-airbender.png",
     sinopsis:
       "Aang, el último Maestro Aire y Avatar, debe dominar los cuatro elementos para detener la guerra iniciada por la Nación del Fuego.",
     comentarios: []
