@@ -55,16 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("detailSynopsis").textContent =
     contenido.sinopsis;
 
-  /* -----------------------------------------------------
-     Visitas
-     -----------------------------------------------------
-     registrarVisita() vive en script.js. Se llama una sola
-     vez por carga de página: cada vez que alguien abre esta
-     ficha, cuenta como una visita nueva.
-  ----------------------------------------------------- */
-  const totalVisitas = registrarVisita(contenido.id);
-  document.getElementById("detailVisitas").textContent =
-    `👁️ ${totalVisitas} ${totalVisitas === 1 ? "visita" : "visitas"}`;
+
 
   /* -----------------------------------------------------
      Botón de favorito
