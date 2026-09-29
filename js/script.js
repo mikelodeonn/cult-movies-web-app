@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderizarFila(peliculas, "peliculasCards");
     renderizarFila(series, "seriesCards");
+    actualizarSeccionesGuardadas();
 
     activarFiltroGeneros();
     activarVolverAInicio();
@@ -18,6 +19,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     activarBusqueda();
 
+    document.querySelectorAll('[data-nav="mas-buscados"]').forEach(enlace => {
+        enlace.addEventListener("click", () => {
+            mostrarVistaInicio();
+            actualizarSeccionesGuardadas();
+        });
+    });
+
+});
+
+// Al volver con Atrás, el navegador puede restaurar el HTML desde su caché.
+window.addEventListener("pageshow", actualizarSeccionesGuardadas);
+window.addEventListener("storage", evento => {
+    if (evento.key === null || evento.key === CLAVE_FAVORITOS || evento.key === CLAVE_VISITAS) {
+        actualizarSeccionesGuardadas();
+    }
+});
+
+function actualizarSeccionesGuardadas() {
+    if (!document.getElementById("favoritosCards")) return;
+    const catalogo = [...peliculas, ...series];
+    const favoritos = obtenerFavoritos();
+    const seleccionados = catalogo.filter(titulo => favoritos.includes(titulo.id));
+    renderizarFila(seleccionados, "favoritosCards", "Aún no tienes favoritos. Usa el corazón de una tarjeta para agregar uno.");
+
+    const visitas = obtenerVisitas();
+    const masBuscados = catalogo
+        .filter(titulo => (visitas[titulo.id] || 0) > 0)
+        .sort((a, b) => visitas[b.id] - visitas[a.id]);
+    renderizarFila(masBuscados, "masBuscadosCards", "Abre una película o serie para que aparezca aquí.");
+
+    // Mantiene actualizada también la grilla de favoritos si quedó abierta.
+    if (document.getElementById("tituloFiltrado").textContent === "Favoritos") {
+        renderizarFila(seleccionados, "gridCards", "Aún no tienes favoritos.");
+    }
+    document.querySelectorAll(".card-fav").forEach(boton => {
+        const favorito = favoritos.includes(boton.dataset.id);
+        boton.textContent = favorito ? "❤️" : "🤍";
+        boton.setAttribute("aria-pressed", String(favorito));
+        const titulo = catalogo.find(titulo => titulo.id === boton.dataset.id);
+        boton.setAttribute("aria-label", `${favorito ? "Quitar de" : "Agregar a"} favoritos: ${titulo.nombre}`);
+    });
+}
+
+// Delegación: también funciona con tarjetas creadas después de buscar o filtrar.
+document.addEventListener("click", evento => {
+    const boton = evento.target.closest(".card-fav");
+    if (!boton) return;
+    try {
+        alternarFavorito(boton.dataset.id);
+    } catch {
+        window.alert("No se pudo guardar el favorito. Inténtalo de nuevo.");
+    }
 });
 
 /*MENU MOVIL*/
@@ -96,8 +149,10 @@ function obtenerPromedio(titulo) {
 }
 
 function crearTarjeta(titulo) {
+  const favorito = esFavorito(titulo.id);
   return `
-    <a class="card" data-id="${titulo.id}" href="detalle.html?id=${titulo.id}">
+    <article class="card" data-id="${titulo.id}">
+      <a class="card-link" href="detalle.html?id=${titulo.id}">
       <img class="card-poster" src="${titulo.poster}" alt="${titulo.nombre}" />
       <div class="card-info">
         <h3 class="card-title">${titulo.nombre}</h3>
@@ -105,15 +160,26 @@ function crearTarjeta(titulo) {
           <span class="card-rate">⭐ ${obtenerPromedio(titulo).toFixed(1)}</span>
         </div>
       </div>
-    </a>
+      </a>
+      <button class="card-fav" type="button" data-id="${titulo.id}"
+        aria-pressed="${favorito}"
+        aria-label="${favorito ? "Quitar de" : "Agregar a"} favoritos: ${titulo.nombre}">
+        ${favorito ? "❤️" : "🤍"}
+      </button>
+    </article>
   `;
 } 
 
 /* Recibe una lista (peliculas o series) y el id del
    contenedor donde deben aparecer las tarjetas. */
-function renderizarFila(lista, idContenedor) {
+function renderizarFila(lista, idContenedor, mensajeVacio = "No hay resultados.") {
     const contenedor = document.getElementById(idContenedor);
     if (!contenedor) return;
+
+    if (lista.length === 0) {
+        contenedor.textContent = mensajeVacio;
+        return;
+    }
 
     // .map recorre la lista y transforma cada título en el HTML de su
     // tarjeta. Devuelve una lista de textos, y .join("") los une en uno solo.
@@ -212,7 +278,12 @@ const CLAVE_FAVORITOS = "cultmovies_favoritos";
 /* Devuelve la lista de ids favoritos. Si todavía no se guardó
    nada, getItem devuelve null y usamos una lista vacía []. */
 function obtenerFavoritos() {
-    return JSON.parse(localStorage.getItem(CLAVE_FAVORITOS)) || [];
+    try {
+        const favoritos = JSON.parse(localStorage.getItem(CLAVE_FAVORITOS));
+        return Array.isArray(favoritos) ? favoritos.filter(id => typeof id === "string") : [];
+    } catch {
+        return [];
+    }
 }
 
 /* Devuelve true si ese id está en la lista de favoritos */
@@ -233,6 +304,7 @@ function alternarFavorito(id) {
     }
 
     localStorage.setItem(CLAVE_FAVORITOS, JSON.stringify(favoritos));
+    actualizarSeccionesGuardadas();
     return posicion === -1;
 }
 
@@ -247,6 +319,7 @@ function activarFiltroFavoritos() {
             const resultados = todos.filter((titulo) => favoritos.includes(titulo.id));
 
             mostrarVistaFiltrada("Favoritos", resultados);
+            renderizarFila(resultados, "gridCards", "Aún no tienes favoritos.");
 
             document
                 .querySelectorAll(".genre-btn")
@@ -303,7 +376,15 @@ function activarBusqueda() {
 const CLAVE_VISITAS = "cultmovies_visitas";
 
 function obtenerVisitas() {
-  return JSON.parse(localStorage.getItem(CLAVE_VISITAS)) || {};
+  try {
+    const visitas = JSON.parse(localStorage.getItem(CLAVE_VISITAS));
+    if (!visitas || typeof visitas !== "object" || Array.isArray(visitas)) return {};
+    return Object.fromEntries(Object.entries(visitas).filter(([, cantidad]) =>
+      Number.isSafeInteger(cantidad) && cantidad >= 0
+    ));
+  } catch {
+    return {};
+  }
 }
 
 /* Suma 1 a las visitas de ese id (o empieza en 1 si nunca

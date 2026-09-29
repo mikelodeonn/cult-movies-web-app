@@ -30,6 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const poster = document.getElementById("detailPoster");
 
+  // Solo registramos visitas para fichas válidas, una vez por carga.
+  const contadorVisitas = document.getElementById("detailVisitas");
+  try {
+    const visitas = registrarVisita(contenido.id);
+    contadorVisitas.textContent = `${visitas} ${visitas === 1 ? "visita" : "visitas"}`;
+  } catch {
+    contadorVisitas.textContent = "No se pudo guardar la visita";
+  }
+
   poster.src = contenido.poster;
   poster.alt = `Poster de ${contenido.nombre}`;
 
