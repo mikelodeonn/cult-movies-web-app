@@ -78,35 +78,17 @@ function activarLinksNavbar() {
    valor de una variable dentro del texto. */
 function crearTarjeta(titulo) {
   return `
-    <article 
-      class="card" 
-      data-id="${titulo.id}"
-      onclick="window.location.href='detalle.html?id=${titulo.id}'"
-    >
-
-      <img
-        class="card-poster"
-        src="${titulo.poster}"
-        alt="${titulo.nombre}"
-      />
-
+    <a class="card" data-id="${titulo.id}" href="detalle.html?id=${titulo.id}">
+      <img class="card-poster" src="${titulo.poster}" alt="${titulo.nombre}" />
       <div class="card-info">
-
-        <h3 class="card-title">
-          ${titulo.nombre}
-        </h3>
-
+        <h3 class="card-title">${titulo.nombre}</h3>
         <div class="card-meta">
-          <span class="card-rate">
-            ⭐ ${titulo.rate}
-          </span>
+          <span class="card-rate">⭐ ${titulo.rate}</span>
         </div>
-
       </div>
-
-    </article>
+    </a>
   `;
-}
+} 
 
 /* Recibe una lista (peliculas o series) y el id del
    contenedor donde deben aparecer las tarjetas. */
@@ -292,20 +274,26 @@ function activarBusqueda() {
     });
 }
 
-function activarBotonesFavoritos() {
-  document.addEventListener("click", (evento) => {
+/* -----------------------------------------------------
+   9. VISITAS (localStorage)
+   -----------------------------------------------------
+   Guardamos UN objeto (no una lista) que asocia cada id con
+   su número de visitas, algo así:
+   { "pel-001": 3, "ser-004": 1 }
+----------------------------------------------------- */
+const CLAVE_VISITAS = "cultmovies_visitas";
 
-    const boton = evento.target.closest("[data-favorito]");
+function obtenerVisitas() {
+  return JSON.parse(localStorage.getItem(CLAVE_VISITAS)) || {};
+}
 
-    if (!boton) return;
-
-    // Evita que el click afecte otros elementos del card
-    evento.stopPropagation();
-
-    const id = boton.dataset.favorito;
-
-    const ahoraEsFavorito = alternarFavorito(id);
-
-    boton.textContent = ahoraEsFavorito ? "❤️" : "🤍";
-  });
+/* Suma 1 a las visitas de ese id (o empieza en 1 si nunca
+   se había visitado), guarda, y devuelve el nuevo total. Se
+   llama una sola vez, al cargar detalle.html, así que cada
+   apertura de la ficha cuenta como una visita nueva. */
+function registrarVisita(id) {
+  const visitas = obtenerVisitas();
+  visitas[id] = (visitas[id] || 0) + 1;
+  localStorage.setItem(CLAVE_VISITAS, JSON.stringify(visitas));
+  return visitas[id];
 }

@@ -13,19 +13,27 @@
 <body>
 
   <!-- NAVBAR -->
-  <header class="navbar">
+  <header class="navbar" id="navBar">
     <div class="navbar-content">
 
       <a href="index.html" class="navbar-logo">
         Cult <span>Movies</span>
       </a>
 
-      <nav class="navbar-links">
-        <a href="index.html#inicio">Inicio</a>
-        <a href="index.html#series">Series</a>
-        <a href="index.html#peliculas">Películas</a>
-        <a href="index.html#favoritos">Favoritos</a>
-      </nav>
+      <button class="navbar-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="navbar__menu" id="navMenu">
+        <nav class="navbar-links" aria-label="Navegacion principal">
+          <a href="index.html#inicio" class="navbar-link">Inicio</a>
+          <a href="index.html#series" class="navbar-link">Series</a>
+          <a href="index.html#peliculas" class="navbar-link">Películas</a>
+          <a href="index.html#favoritos" class="navbar-link">Favoritos</a>
+        </nav>
+      </div>
 
     </div>
   </header>
@@ -96,6 +104,8 @@
           </span>
 
           <span>/ 5</span>
+
+          <span class="detail-visits" id="detailVisitas"></span>
 
         </div>
 
@@ -187,6 +197,7 @@
 
 
   <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
   <script src="js/detalle.js"></script>
 
 </body>

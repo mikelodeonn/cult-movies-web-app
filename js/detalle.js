@@ -55,4 +55,37 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("detailSynopsis").textContent =
     contenido.sinopsis;
 
+  /* -----------------------------------------------------
+     Visitas
+     -----------------------------------------------------
+     registrarVisita() vive en script.js. Se llama una sola
+     vez por carga de página: cada vez que alguien abre esta
+     ficha, cuenta como una visita nueva.
+  ----------------------------------------------------- */
+  const totalVisitas = registrarVisita(contenido.id);
+  document.getElementById("detailVisitas").textContent =
+    `👁️ ${totalVisitas} ${totalVisitas === 1 ? "visita" : "visitas"}`;
+
+  /* -----------------------------------------------------
+     Botón de favorito
+     -----------------------------------------------------
+     esFavorito() y alternarFavorito() ya existen en script.js
+     (se cargó antes que este archivo), así que no hace falta
+     escribir de nuevo la lógica de localStorage aquí.
+  ----------------------------------------------------- */
+  const botonFav = document.getElementById("detailFavBtn");
+
+  function pintarBotonFav() {
+    botonFav.textContent = esFavorito(contenido.id)
+      ? "❤️ En favoritos"
+      : "🤍 Agregar a favoritos";
+  }
+
+  pintarBotonFav(); // refleja el estado guardado al abrir la página
+
+  botonFav.addEventListener("click", () => {
+    alternarFavorito(contenido.id);
+    pintarBotonFav();
+  });
+
 });
