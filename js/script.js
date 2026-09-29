@@ -77,16 +77,33 @@ function activarLinksNavbar() {
    ` ` permiten escribir varias líneas, y ${...} inserta el
    valor de una variable dentro del texto. */
 function crearTarjeta(titulo) {
-    return `
-    <article class="card" data-id="${titulo.id}">
-      <img class="card-poster" src="${titulo.poster}" alt="${titulo.nombre}" />
+  return `
+    <article 
+      class="card" 
+      data-id="${titulo.id}"
+      onclick="window.location.href='detalle.html?id=${titulo.id}'"
+    >
+
+      <img
+        class="card-poster"
+        src="${titulo.poster}"
+        alt="${titulo.nombre}"
+      />
+
       <div class="card-info">
-        <h3 class="card-title">${titulo.nombre}</h3>
+
+        <h3 class="card-title">
+          ${titulo.nombre}
+        </h3>
+
         <div class="card-meta">
-          <span class="card-rate">⭐ ${titulo.rate}</span>
-          
+          <span class="card-rate">
+            ⭐ ${titulo.rate}
+          </span>
         </div>
+
       </div>
+
     </article>
   `;
 }
@@ -273,4 +290,22 @@ function activarBusqueda() {
         // Si se buscó desde el menú móvil abierto, lo cerramos
         if (menu) menu.classList.remove("is-open");
     });
+}
+
+function activarBotonesFavoritos() {
+  document.addEventListener("click", (evento) => {
+
+    const boton = evento.target.closest("[data-favorito]");
+
+    if (!boton) return;
+
+    // Evita que el click afecte otros elementos del card
+    evento.stopPropagation();
+
+    const id = boton.dataset.favorito;
+
+    const ahoraEsFavorito = alternarFavorito(id);
+
+    boton.textContent = ahoraEsFavorito ? "❤️" : "🤍";
+  });
 }

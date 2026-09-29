@@ -3,53 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Cult Movies</title>
+
     <meta
       name="description"
-      content="Pagina Web sobre series y películas, guarda tus favoritos y consulta lo más buscado."
+      content="Página web sobre series y películas, guarda tus favoritos y consulta lo más buscado."
     />
+
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
   <body>
-    <!--NAVBAR-->
+
+    <!-- NAVBAR -->
     <header class="navbar" id="navBar">
-      <!--CONTENIDO DE NAVBAR-->
+
       <div class="navbar-content">
+
+        <!-- LOGO -->
         <a href="#inicio" class="navbar-logo" data-nav="inicio">
-          Cult <span> Movies </span>
+          Cult <span>Movies</span>
         </a>
 
-        <!--PARA EL BOTON ADAPTADO A MOVILES-->
-        <button class="navbar-toggle" id="navToggle">
+
+        <!-- BOTÓN HAMBURGUESA -->
+        <button
+          class="navbar-toggle"
+          id="navToggle"
+          aria-label="Abrir menú"
+        >
           <span></span>
           <span></span>
           <span></span>
         </button>
 
+
+        <!-- MENÚ -->
         <div class="navbar-menu" id="navMenu">
-          <!--NAVEGACION-->
-          <nav class="navbar-links" aria-label="Navegacion principal">
-            <a href="#inicio" class="navbar-link is-active" data-nav="inicio"
-              >Inicio</a
+
+          <nav
+            class="navbar-links"
+            aria-label="Navegación principal"
+          >
+
+            <a
+              href="#inicio"
+              class="navbar-link is-active"
+              data-nav="inicio"
             >
-            <a href="#series" class="navbar-link" data-nav="series">Series</a>
-            <a href="#peliculas" class="navbar-link" data-nav="peliculas"
-              >Películas</a
+              Inicio
+            </a>
+
+            <a
+              href="#series"
+              class="navbar-link"
+              data-nav="series"
             >
-            <a href="#favoritos" class="navbar-link" data-nav="favoritos"
-              >Favoritos</a
+              Series
+            </a>
+
+            <a
+              href="#peliculas"
+              class="navbar-link"
+              data-nav="peliculas"
             >
-            <a href="#mas-buscados" class="navbar-link" data-nav="mas-buscados"
-              >Más buscados</a
+              Películas
+            </a>
+
+            <a
+              href="#favoritos"
+              class="navbar-link"
+              data-nav="favoritos"
             >
-            <a href="#contacto" class="navbar-link" data-nav="contacto"
-              >Contacto</a
+              Favoritos
+            </a>
+
+            <a
+              href="#mas-buscados"
+              class="navbar-link"
+              data-nav="mas-buscados"
             >
+              Más buscados
+            </a>
+
+            <a
+              href="#contacto"
+              class="navbar-link"
+              data-nav="contacto"
+            >
+              Contacto
+            </a>
+
           </nav>
 
-          <!-- BARRA DE BUSQUEDA -->
+
+          <!-- BUSCADOR -->
           <form class="navbar-search" id="searchForm">
+
             <input
               type="search"
               id="searchInput"
@@ -58,7 +109,12 @@
               placeholder="Buscar título..."
               autocomplete="off"
             />
-            <button type="submit" class="navbar-search-btn">
+
+            <button
+              type="submit"
+              class="navbar-search-btn"
+              aria-label="Buscar"
+            >
               <svg
                 viewBox="0 0 24 24"
                 width="18"
@@ -68,126 +124,364 @@
                 stroke-width="2"
               >
                 <circle cx="11" cy="11" r="7"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+
+                <line
+                  x1="21"
+                  y1="21"
+                  x2="16.65"
+                  y2="16.65"
+                ></line>
               </svg>
             </button>
+
           </form>
+
         </div>
       </div>
     </header>
 
+
+    <!-- CONTENIDO PRINCIPAL -->
     <main id="mainContent">
-      <!--HERO O CONTENIDO MAS LLAMATIVO-->
-      <section class="hero" id="hero">
+
+
+      <!-- HERO -->
+      <section class="hero" id="inicio">
+
         <div class="hero-media">
-          <video class="hero-video" autoplay muted loop playsinline>
+
+          <video
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+          >
             <source
               src="videos/Coyote Vs. ACME - Trailer Oficial Doblado al Español.mp4"
+              type="video/mp4"
             />
           </video>
+
           <div class="hero-overlay"></div>
+
         </div>
+
 
         <div class="hero-content">
-          <span class="hero-eyebrow">Estreno del mes</span>
-          <h1 class="hero-title">Coyote vs Acme</h1>
-          <p class="hero-info">2026 - Ciencia Ficción - 2h 18min</p>
-          <p class="hero-synopsis">
-            Después de que los productos de Acme le fallan demasiadas veces en
-            su tenaz búsqueda del Correcaminos, Wile E. Coyote decide contratar
-            a un abogado especializado en vallas publicitarias para demandar a
-            Acme Corporation.
+
+          <span class="hero-eyebrow">
+            Estreno del mes
+          </span>
+
+          <h1 class="hero-title">
+            Coyote vs Acme
+          </h1>
+
+          <p class="hero-info">
+            2026 - Comedia - 2h 18min
           </p>
+
+          <p class="hero-synopsis">
+            Después de que los productos de Acme le fallan demasiadas veces
+            en su tenaz búsqueda del Correcaminos, Wile E. Coyote decide
+            contratar a un abogado especializado en vallas publicitarias
+            para demandar a Acme Corporation.
+          </p>
+
+
           <div class="hero-actions">
-            <button class="btn-details" id="heroInfoBtn">Ver Detalles</button>
+
+            <!-- ENVÍA EL ID A detalle.html -->
+            <button
+              class="btn-details"
+              id="heroInfoBtn"
+              onclick="window.location.href='detalle.html?id=pel-001'"
+            >
+              Ver detalles
+            </button>
+
           </div>
+
         </div>
+
       </section>
 
-      <!-- CONTENEDOR DE 2 COLUMNAS: sidebar + contenido principal -->
+
+      <!-- ============================== -->
+      <!-- SIDEBAR + CONTENIDO PRINCIPAL -->
+      <!-- ============================== -->
+
       <div class="layout-container">
+
+
         <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar">
-          <!-- BLOQUE 1: Filtro de Géneros -->
+
+
+          <!-- GÉNEROS -->
           <div class="sidebar-genres">
-            <h3 class="sidebar-title">Géneros</h3>
+
+            <h3 class="sidebar-title">
+              Géneros
+            </h3>
+
             <ul class="genre-list">
+
               <li>
-                <button class="genre-btn" data-genero="Comedia">Comedia</button>
+                <button
+                  class="genre-btn"
+                  data-genero="Comedia"
+                >
+                  Comedia
+                </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Acción">Acción</button>
+                <button
+                  class="genre-btn"
+                  data-genero="Acción"
+                >
+                  Acción
+                </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Drama">Drama</button>
+                <button
+                  class="genre-btn"
+                  data-genero="Drama"
+                >
+                  Drama
+                </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Fantasia">
+                <button
+                  class="genre-btn"
+                  data-genero="Fantasía"
+                >
                   Fantasía
                 </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Ciencia ficción">
+                <button
+                  class="genre-btn"
+                  data-genero="Ciencia ficción"
+                >
                   Ciencia Ficción
                 </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Animación">
+                <button
+                  class="genre-btn"
+                  data-genero="Animación"
+                >
                   Animación
                 </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Drama histórico">
+                <button
+                  class="genre-btn"
+                  data-genero="Drama histórico"
+                >
                   Drama histórico
                 </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Crimen">Crimen</button>
+                <button
+                  class="genre-btn"
+                  data-genero="Crimen"
+                >
+                  Crimen
+                </button>
               </li>
+
               <li>
-                <button class="genre-btn" data-genero="Misterio">
+                <button
+                  class="genre-btn"
+                  data-genero="Misterio"
+                >
                   Misterio
                 </button>
               </li>
+
             </ul>
+
           </div>
-          <!-- BLOQUE 2: Mejor Valorados -->
+
+
+          <!-- MEJOR VALORADOS -->
           <div class="sidebar-top-rated">
-            <h3 class="sidebar-title">Ranking</h3>
-            <button class="btn-top-rated" id="topRatedBtn">
+
+            <h3 class="sidebar-title">
+              Ranking
+            </h3>
+
+            <button
+              class="btn-top-rated"
+              id="topRatedBtn"
+            >
               Mejor Valorados
             </button>
+
           </div>
+
         </aside>
 
-        <!-- CONTENIDO PRINCIPAL: aquí van las filas estilo Netflix o la grilla filtrada -->
-        <div class="content-area" id="contentArea">
-          <!--VISTA DEFAULT-->
+
+        <!-- ============================== -->
+        <!-- CONTENIDO -->
+        <!-- ============================== -->
+
+        <div
+          class="content-area"
+          id="contentArea"
+        >
+
+
+          <!-- VISTA PRINCIPAL -->
           <div id="vistaInicio">
-            <section class="row" id="peliculas">
-              <h2 class="row-title">Peliculas</h2>
-              <div class="row-cards" id="peliculasCards"></div>
+
+
+            <!-- PELÍCULAS -->
+            <section
+              class="row"
+              id="peliculas"
+            >
+
+              <h2 class="row-title">
+                Películas
+              </h2>
+
+              <div
+                class="row-cards"
+                id="peliculasCards"
+              >
+                <!-- JS GENERA LOS CARDS -->
+              </div>
+
             </section>
 
-            <section class="row" id="series">
-              <h2 class="row-title">Series</h2>
-              <div class="row-cards" id="seriesCards"></div>
+
+            <!-- SERIES -->
+            <section
+              class="row"
+              id="series"
+            >
+
+              <h2 class="row-title">
+                Series
+              </h2>
+
+              <div
+                class="row-cards"
+                id="seriesCards"
+              >
+                <!-- JS GENERA LOS CARDS -->
+              </div>
+
             </section>
+
+
+            <!-- FAVORITOS -->
+            <section
+              class="row"
+              id="favoritos"
+            >
+
+              <h2 class="row-title">
+                Favoritos
+              </h2>
+
+              <div
+                class="row-cards"
+                id="favoritosCards"
+              >
+                <!-- JS GENERA LOS FAVORITOS -->
+              </div>
+
+            </section>
+
+
+            <!-- MÁS BUSCADOS -->
+            <section
+              class="row"
+              id="mas-buscados"
+            >
+
+              <h2 class="row-title">
+                Más buscados
+              </h2>
+
+              <div
+                class="row-cards"
+                id="masBuscadosCards"
+              >
+                <!-- JS GENERA LOS MÁS BUSCADOS -->
+              </div>
+
+            </section>
+
           </div>
-          <!--PARA RESULTADOS DE FILTRADOS (OCULTO AL INICIO)-->
-          <div id="vistaFiltrada" class="oculto">
-            <h2 class="row-title" id="tituloFiltrado">Resultados</h2>
-            <div class="grid-cards" id="gridCards">
-              <!-- Los resultados se crean con JS al filtrar -->
+
+
+          <!-- ============================== -->
+          <!-- VISTA FILTRADA -->
+          <!-- ============================== -->
+
+          <div
+            id="vistaFiltrada"
+            class="oculto"
+          >
+
+            <h2
+              class="row-title"
+              id="tituloFiltrado"
+            >
+              Resultados
+            </h2>
+
+            <div
+              class="grid-cards"
+              id="gridCards"
+            >
+              <!-- JS GENERA RESULTADOS -->
             </div>
+
           </div>
+
         </div>
+
       </div>
 
-      <!-- - Modal de Detalle -->
-      <!-- ============================= -->
     </main>
-    <script src="js/script.js"></script>
+
+
+    <!-- ============================== -->
+    <!-- FOOTER -->
+    <!-- ============================== -->
+
+    <footer
+      class="footer"
+      id="contacto"
+    >
+
+      <p>
+        © 2026 Cult Movies
+      </p>
+
+    </footer>
+
+
+    <!-- DATOS PRIMERO -->
     <script src="js/data.js"></script>
+
+    <!-- LÓGICA DESPUÉS -->
+    <script src="js/script.js"></script>
+
   </body>
 </html>

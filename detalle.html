@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Detalle | Cult Movies</title>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/detalle.css" />
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-content">
+
+      <a href="index.html" class="navbar-logo">
+        Cult <span>Movies</span>
+      </a>
+
+      <nav class="navbar-links">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#series">Series</a>
+        <a href="index.html#peliculas">Películas</a>
+        <a href="index.html#favoritos">Favoritos</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- DETALLE -->
+  <main class="detail-page">
+
+    <section class="detail-container">
+
+      <!-- POSTER -->
+      <div class="detail-poster">
+        <img
+          id="detailPoster"
+          src=""
+          alt="Poster"
+        />
+      </div>
+
+
+      <!-- INFORMACIÓN -->
+      <div class="detail-info">
+
+        <span
+          class="detail-type"
+          id="detailType"
+        >
+          Película
+        </span>
+
+        <h1
+          class="detail-title"
+          id="detailTitle"
+        >
+          Título
+        </h1>
+
+
+        <!-- DATOS PRINCIPALES -->
+        <div class="detail-meta">
+
+          <span id="detailYear">
+            2026
+          </span>
+
+          <span>•</span>
+
+          <span id="detailGenre">
+            Comedia
+          </span>
+
+          <span>•</span>
+
+          <span id="detailDuration">
+            2h 18min
+          </span>
+
+        </div>
+
+
+        <!-- CALIFICACIÓN -->
+        <div class="detail-rating">
+
+          <span class="star">★</span>
+
+          <span id="detailRate">
+            4.2
+          </span>
+
+          <span>/ 5</span>
+
+        </div>
+
+
+        <!-- SINOPSIS -->
+        <section class="detail-section">
+
+          <h2>Sinopsis</h2>
+
+          <p id="detailSynopsis">
+            Sinopsis del contenido.
+          </p>
+
+        </section>
+
+
+        <!-- ACCIONES -->
+        <div class="detail-actions">
+
+          <button
+            class="btn-details"
+            id="detailFavBtn"
+          >
+            🤍 Agregar a favoritos
+          </button>
+
+          <a
+            href="index.html"
+            class="btn-back"
+          >
+            Volver al catálogo
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- COMENTARIOS -->
+    <section class="comments-section">
+
+      <h2>Comentarios</h2>
+
+
+      <!-- FORMULARIO -->
+      <form
+        class="comment-form"
+        id="commentForm"
+      >
+
+        <textarea
+          id="commentInput"
+          rows="4"
+          placeholder="Escribe un comentario..."
+          required
+        ></textarea>
+
+        <button
+          type="submit"
+          class="btn-details"
+        >
+          Publicar comentario
+        </button>
+
+      </form>
+
+
+      <!-- LISTA -->
+      <div
+        class="comments-list"
+        id="commentsList"
+      >
+
+        <!-- JS agrega comentarios -->
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 Cult Movies</p>
+  </footer>
+
+
+  <script src="js/data.js"></script>
+  <script src="js/detalle.js"></script>
+
+</body>
+</html>

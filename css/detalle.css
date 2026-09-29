@@ -1,0 +1,258 @@
+/* ========================= */
+/* PAGINA DE DETALLE */
+/* ========================= */
+
+.detail-page {
+  padding: 120px 32px 60px;
+}
+
+.detail-container {
+  max-width: 1200px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+
+  background: var(--azul);
+  border-radius: 12px;
+
+  padding: 32px;
+}
+
+
+/* POSTER */
+.detail-poster img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+
+  object-fit: cover;
+  border-radius: 10px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* INFORMACION */
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.detail-type {
+  width: fit-content;
+
+  margin-bottom: 10px;
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  background: var(--oliva);
+  color: var(--oscuro);
+
+  font-size: 0.8rem;
+  font-weight: bold;
+
+  text-transform: uppercase;
+}
+
+.detail-title {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-bottom: 14px;
+
+  color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* CALIFICACION */
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-bottom: 24px;
+
+  color: var(--oliva);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.star {
+  font-size: 1.4rem;
+}
+
+
+/* SINOPSIS */
+.detail-section {
+  margin-bottom: 28px;
+}
+
+.detail-section h2 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.detail-section p {
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* BOTONES */
+.detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-back {
+  display: inline-block;
+
+  padding: 11px 20px;
+
+  border: 2px solid var(--oliva);
+  border-radius: 6px;
+
+  color: var(--blanco);
+  font-weight: bold;
+
+  transition: 0.2s;
+}
+
+.btn-back:hover {
+  background: var(--verde);
+  border-color: var(--verde);
+}
+
+
+/* ========================= */
+/* COMENTARIOS */
+/* ========================= */
+
+.comments-section {
+  max-width: 1200px;
+
+  margin: 40px auto 0;
+  padding: 30px;
+
+  background: var(--azul);
+  border-radius: 12px;
+}
+
+.comments-section h2 {
+  margin-bottom: 20px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-bottom: 30px;
+}
+
+.comment-form textarea {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 0;
+  border-radius: 8px;
+  outline: 0;
+
+  resize: vertical;
+
+  background: var(--oscuro);
+  color: var(--blanco);
+
+  font-family: inherit;
+}
+
+.comment-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
+/* LISTA DE COMENTARIOS */
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.comment-item {
+  padding: 16px;
+
+  border-radius: 8px;
+
+  background: rgba(80, 81, 96, 0.8);
+}
+
+.comment-item p {
+  margin-bottom: 6px;
+}
+
+.comment-item small {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 800px) {
+  .detail-page {
+    padding: 100px 20px 40px;
+  }
+
+  .detail-container {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .detail-poster {
+    max-width: 300px;
+    margin: auto;
+  }
+
+  .detail-title {
+    font-size: 2rem;
+  }
+
+  .comments-section {
+    margin: 30px 20px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-title {
+    font-size: 1.6rem;
+  }
+
+  .detail-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-back,
+  .detail-actions .btn-details {
+    width: 100%;
+    text-align: center;
+  }
+}
