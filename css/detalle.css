@@ -168,7 +168,8 @@
   margin-bottom: 30px;
 }
 
-.comment-form textarea {
+.comment-form textarea,
+.comment-form select {
   width: 100%;
 
   padding: 14px;
@@ -207,10 +208,23 @@
 
 .comment-item p {
   margin-bottom: 6px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
-.comment-item small {
+.comment-item time {
   color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+#commentStatus:not(:empty) {
+  margin-bottom: 16px;
+}
+
+.comment-form textarea:focus-visible,
+.comment-form select:focus-visible {
+  outline: 2px solid var(--color-oliva);
+  outline-offset: 2px;
 }
 
 
@@ -261,5 +275,77 @@
   .detail-actions .btn-details {
     width: 100%;
     text-align: center;
+  }
+}
+
+/* FOOTER */
+.footer {
+  margin-top: 40px;
+  background: #3f4050;
+  color: var(--blanco);
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 36px 32px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.footer h3,
+.footer h4 {
+  margin-bottom: 12px;
+}
+
+.footer h3 {
+  font-size: 1.5rem;
+}
+
+.footer h3 span {
+  color: var(--oliva);
+}
+
+.footer-brand p {
+  max-width: 450px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-contact {
+  justify-self: end;
+}
+
+.footer-contact p {
+  margin-bottom: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-contact a {
+  color: var(--oliva);
+  transition: 0.2s;
+}
+
+.footer-contact a:hover {
+  color: var(--blanco);
+}
+
+.footer-bottom {
+  padding: 16px 32px;
+  text-align: center;
+
+  background: #353642;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    padding: 28px 20px;
+  }
+
+  .footer-contact {
+    justify-self: start;
   }
 }

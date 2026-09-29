@@ -76,6 +76,25 @@ function activarLinksNavbar() {
    HTML de su tarjeta como texto. Las comillas invertidas
    ` ` permiten escribir varias líneas, y ${...} inserta el
    valor de una variable dentro del texto. */
+// La nota original cuenta como un voto; nunca se reemplaza en data.js.
+function esPuntuacionValida(valor) {
+  return Number.isInteger(valor) && valor >= 1 && valor <= 5;
+}
+
+function obtenerPromedio(titulo) {
+  try {
+    const comentarios = JSON.parse(localStorage.getItem(`cultmovies_comentarios_${titulo.id}`) || "[]");
+    if (!Array.isArray(comentarios)) return titulo.rate;
+    const puntuados = comentarios.filter(comentario =>
+      comentario && esPuntuacionValida(comentario.puntuacion)
+    );
+    const suma = puntuados.reduce((total, comentario) => total + comentario.puntuacion, titulo.rate);
+    return suma / (puntuados.length + 1);
+  } catch {
+    return titulo.rate;
+  }
+}
+
 function crearTarjeta(titulo) {
   return `
     <a class="card" data-id="${titulo.id}" href="detalle.html?id=${titulo.id}">
@@ -83,7 +102,7 @@ function crearTarjeta(titulo) {
       <div class="card-info">
         <h3 class="card-title">${titulo.nombre}</h3>
         <div class="card-meta">
-          <span class="card-rate">⭐ ${titulo.rate}</span>
+          <span class="card-rate">⭐ ${obtenerPromedio(titulo).toFixed(1)}</span>
         </div>
       </div>
     </a>
@@ -164,8 +183,8 @@ function activarMejorValorados() {
         const todos = [...peliculas, ...series];
 
         // .sort recibe una función que compara dos títulos (a y b).
-        // Si b.rate - a.rate es positivo, b va primero: de mayor a menor.
-        const ordenados = todos.sort((a, b) => b.rate - a.rate);
+        // Ordenamos por el promedio actual, sin redondearlo antes de comparar.
+        const ordenados = todos.sort((a, b) => obtenerPromedio(b) - obtenerPromedio(a));
 
         mostrarVistaFiltrada("Mejor valorados", ordenados);
 

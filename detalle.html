@@ -158,12 +158,23 @@
         id="commentForm"
       >
 
+        <label for="commentInput">Tu reseña</label>
         <textarea
           id="commentInput"
           rows="4"
           placeholder="Escribe un comentario..."
           required
         ></textarea>
+
+        <label for="commentRating">Tu puntuación</label>
+        <select id="commentRating" required>
+          <option value="">Selecciona las estrellas</option>
+          <option value="1">★ — 1 estrella</option>
+          <option value="2">★★ — 2 estrellas</option>
+          <option value="3">★★★ — 3 estrellas</option>
+          <option value="4">★★★★ — 4 estrellas</option>
+          <option value="5">★★★★★ — 5 estrellas</option>
+        </select>
 
         <button
           type="submit"
@@ -174,6 +185,7 @@
 
       </form>
 
+      <p id="commentStatus" role="status" aria-live="polite"></p>
 
       <!-- LISTA -->
       <div
@@ -191,9 +203,47 @@
 
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2026 Cult Movies</p>
-  </footer>
+  <footer class="footer" id="contacto">
+        <div class="footer-container">
+
+            <div class="footer-brand">
+            <h3>Cult <span>Movies</span></h3>
+            <p>
+                Catálogo de películas y series desarrollado con HTML, CSS y JavaScript.
+            </p>
+            </div>
+
+            <div class="footer-contact">
+            <h4>Contacto</h4>
+
+            <p>
+                <strong>Miguel Oswaldo Valadez Rangel</strong><br />
+                <a href="mailto:LRS22110584@purisima.tecnm.mx">
+                LRS22110584@purisima.tecnm.mx
+                </a>
+            </p>
+
+            <p>
+                <strong>Alan Castillo Barajas</strong><br />
+                <a href="mailto:LRS22110100@purisima.tecnm.mx">
+                LRS22110100@purisima.tecnm.mx
+                </a>
+            </p>
+
+            <p>
+                <strong>Teléfono:</strong>
+                <a href="tel:+524771234567">
+                +52 477 123 4567
+                </a>
+            </p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Cult Movies</p>
+        </div>
+    </footer>
 
 
   <script src="js/data.js"></script>
