@@ -398,10 +398,22 @@ a {
 /*CREA TODAS LAS COLUMNAS DE ALMENOS 180PX QUE QUEPAN EN EL ANCHO DISPONIBLE Y REPARTE EL SOBRANTE ENTRE ELLAS*/
 .grid-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+  gap: 24px;
+  align-items: start;
 }
 .grid-cards .card {
     width: auto; /*EN LA FILA LAS TARJETAS TENIAN TAMANO FIJO, EN EL GRID DEBEN OCUPAR EL ANCHO*/
+    min-width: 0;
+}
+
+#vistaFiltrada {
+  scroll-margin-top: 100px;
+}
+
+.btn-top-rated.is-active {
+  background: var(--color-oliva);
+  color: var(--color-oscuro);
 }
 
 /*MEDIAQUERY PARA CELULARES*/

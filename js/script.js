@@ -1,6 +1,4 @@
-/* SCRIPT.JS
-
-
+const filtrosCatalogo = { tipo: "", genero: "", ranking: false };
 /*EVENTO QUE SE DISPARA CUANDO EL NAVEGADOR TERMINA DE LEER EL HTML, PARA PODER BUSCAR ELEMENTOS SIN ERRORES*/
 document.addEventListener("DOMContentLoaded", () => {
     activarMenuMovil();
@@ -11,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarSeccionesGuardadas();
 
     activarFiltroGeneros();
+    activarFiltroTipos();
+    actualizarIndicadoresFiltros();
     activarVolverAInicio();
 
     activarMejorValorados();
@@ -191,7 +191,7 @@ function renderizarFila(lista, idContenedor, mensajeVacio = "No hay resultados."
  también Favoritos, Mejor Valorados y la búsqueda. */
 function mostrarVistaFiltrada(titulo, lista) {
     document.getElementById("tituloFiltrado").textContent = titulo;
-    document.getElementById("gridCards").innerHTML = lista.map(crearTarjeta).join("");
+    renderizarFila(lista, "gridCards", "No hay títulos que coincidan con estos filtros.");
 
     document.getElementById("vistaInicio").classList.add("oculto");
     document.getElementById("vistaFiltrada").classList.remove("oculto");
@@ -199,12 +199,67 @@ function mostrarVistaFiltrada(titulo, lista) {
 
 /* Vuelve a la vista de las dos filas y quita el género marcado */
 function mostrarVistaInicio() {
+    reiniciarFiltros();
     document.getElementById("vistaFiltrada").classList.add("oculto");
     document.getElementById("vistaInicio").classList.remove("oculto");
 
-    document
-        .querySelectorAll(".genre-btn")
-        .forEach((boton) => boton.classList.remove("is-active"));
+}
+
+function actualizarIndicadoresFiltros() {
+    document.querySelectorAll(".genre-btn").forEach(boton => {
+        const activo = boton.dataset.genero === filtrosCatalogo.genero;
+        boton.classList.toggle("is-active", activo);
+        boton.setAttribute("aria-pressed", String(activo));
+    });
+    const ranking = document.getElementById("topRatedBtn");
+    if (ranking) {
+        ranking.classList.toggle("is-active", filtrosCatalogo.ranking);
+        ranking.setAttribute("aria-pressed", String(filtrosCatalogo.ranking));
+    }
+}
+
+function reiniciarFiltros() {
+    filtrosCatalogo.tipo = "";
+    filtrosCatalogo.genero = "";
+    filtrosCatalogo.ranking = false;
+    actualizarIndicadoresFiltros();
+}
+
+function aplicarFiltrosCatalogo() {
+    const resultados = [...peliculas, ...series].filter(titulo =>
+        (!filtrosCatalogo.tipo || titulo.tipo === filtrosCatalogo.tipo) &&
+        (!filtrosCatalogo.genero || titulo.genero === filtrosCatalogo.genero)
+    );
+    if (filtrosCatalogo.ranking) {
+        resultados.sort((a, b) => obtenerPromedio(b) - obtenerPromedio(a));
+    }
+    const tipo = filtrosCatalogo.tipo === "pelicula" ? "Películas" :
+        filtrosCatalogo.tipo === "serie" ? "Series" : "Películas y series";
+    const titulo = [filtrosCatalogo.ranking ? "Mejor valorados" : "", tipo, filtrosCatalogo.genero]
+        .filter(Boolean).join(" · ");
+    mostrarVistaFiltrada(titulo, resultados);
+    actualizarIndicadoresFiltros();
+    document.querySelectorAll(".navbar-link").forEach(enlace => {
+        const activo = (filtrosCatalogo.tipo === "pelicula" && enlace.dataset.nav === "peliculas") ||
+            (filtrosCatalogo.tipo === "serie" && enlace.dataset.nav === "series");
+        enlace.classList.toggle("is-active", activo);
+    });
+    document.getElementById("vistaFiltrada").scrollIntoView({ block: "start" });
+}
+
+function activarFiltroTipos() {
+    document.querySelectorAll('[data-nav="peliculas"], [data-nav="series"]').forEach(enlace => {
+        enlace.addEventListener("click", evento => {
+            evento.preventDefault();
+            filtrosCatalogo.tipo = enlace.dataset.nav === "peliculas" ? "pelicula" : "serie";
+            aplicarFiltrosCatalogo();
+        });
+    });
+    // Los enlaces del detalle llegan al catálogo con estos fragmentos.
+    if (window.location.hash === "#peliculas" || window.location.hash === "#series") {
+        filtrosCatalogo.tipo = window.location.hash === "#peliculas" ? "pelicula" : "serie";
+        aplicarFiltrosCatalogo();
+    }
 }
 
 function activarFiltroGeneros() {
@@ -213,14 +268,8 @@ function activarFiltroGeneros() {
     botones.forEach((boton) => {
         boton.addEventListener("click", () => {
 
-            const genero = boton.dataset.genero;
-            const todos = [...peliculas, ...series];
-            const resultados = todos.filter((titulo) => titulo.genero === genero);
-
-            mostrarVistaFiltrada(genero, resultados);
-
-            botones.forEach((otro) => otro.classList.remove("is-active"));
-            boton.classList.add("is-active");
+            filtrosCatalogo.genero = filtrosCatalogo.genero === boton.dataset.genero ? "" : boton.dataset.genero;
+            aplicarFiltrosCatalogo();
 
 
         });
@@ -242,22 +291,8 @@ function activarMejorValorados() {
     if (!boton) return;
 
     boton.addEventListener("click", () => {
-        // [...peliculas, ...series] crea una lista NUEVA. Es importante,
-        // porque .sort() cambia el orden de la lista sobre la que se
-        // usa: si ordenáramos "peliculas" directamente, las filas del
-        // inicio quedarían reordenadas también.
-        const todos = [...peliculas, ...series];
-
-        // .sort recibe una función que compara dos títulos (a y b).
-        // Ordenamos por el promedio actual, sin redondearlo antes de comparar.
-        const ordenados = todos.sort((a, b) => obtenerPromedio(b) - obtenerPromedio(a));
-
-        mostrarVistaFiltrada("Mejor valorados", ordenados);
-
-        // Quitamos el género marcado, para no tener dos filtros activos
-        document
-            .querySelectorAll(".genre-btn")
-            .forEach((genero) => genero.classList.remove("is-active"));
+        filtrosCatalogo.ranking = !filtrosCatalogo.ranking;
+        aplicarFiltrosCatalogo();
     });
 
 
@@ -313,7 +348,9 @@ function alternarFavorito(id) {
 ----------------------------------------------------- */
 function activarFiltroFavoritos() {
     document.querySelectorAll('[data-nav="favoritos"]').forEach((enlace) => {
-        enlace.addEventListener("click", () => {
+        enlace.addEventListener("click", (evento) => {
+            evento.preventDefault();
+            reiniciarFiltros();
             const favoritos = obtenerFavoritos();
             const todos = [...peliculas, ...series];
             const resultados = todos.filter((titulo) => favoritos.includes(titulo.id));
@@ -321,9 +358,7 @@ function activarFiltroFavoritos() {
             mostrarVistaFiltrada("Favoritos", resultados);
             renderizarFila(resultados, "gridCards", "Aún no tienes favoritos.");
 
-            document
-                .querySelectorAll(".genre-btn")
-                .forEach((genero) => genero.classList.remove("is-active"));
+            document.getElementById("vistaFiltrada").scrollIntoView({ block: "start" });
         });
     });
 }
@@ -346,6 +381,7 @@ function activarBusqueda() {
         // sin que "Dune" y "dune" cuenten como distintos.
         const texto = input.value.trim().toLowerCase();
         if (!texto) return; // si el campo está vacío, no hacemos nada
+        reiniciarFiltros();
 
         const todos = [...peliculas, ...series];
 
@@ -357,9 +393,8 @@ function activarBusqueda() {
 
         mostrarVistaFiltrada(`Resultados para "${input.value}"`, resultados);
 
-        document
-            .querySelectorAll(".genre-btn")
-            .forEach((genero) => genero.classList.remove("is-active"));
+        document.querySelectorAll(".navbar-link").forEach(enlace => enlace.classList.remove("is-active"));
+        document.getElementById("vistaFiltrada").scrollIntoView({ block: "start" });
 
         // Si se buscó desde el menú móvil abierto, lo cerramos
         if (menu) menu.classList.remove("is-open");
